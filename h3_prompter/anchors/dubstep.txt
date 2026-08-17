@@ -1,0 +1,16 @@
+Global Metadata
+Basic Attributes: bpm is 140. key is F#, and scale is minor. Dubstep / Heavy Bass Music.
+Global Emotional Progression: The track opens in ominous suspension, all shadow and anticipation, then ratchets tension upward through a menacing build until the first drop detonates into aggressive, physical bass weight. The energy alternates between crushing drop sections and eerie, hollowed-out interludes, ending on a final drop that pushes the aggression furthest before collapsing into a dark ambient tail.
+Application Scenarios & Imagery: Ideal for intense gaming montages, extreme sports edits, confrontational trailer moments, or bass-heavy club systems built for physical sound pressure.
+Sonics & Production Profile: The mix is engineered around the low end: a seismic sub-bass foundation with aggressive LFO-modulated mid-bass growls and screeches layered above it. Drums are sparse but enormous, with a dry punchy kick and a huge cracking snare. Heavy sidechain pumping breathes the pads around the bass; the drops are dense and distorted while the interludes are cavernous and empty.
+Vocal Details
+Vocal Gender & Timbre: Singer A (Female). A cool, clear timbre with a detached, icy edge in the verses.
+Vocal Style: Restrained, spacious phrasing during the atmospheric sections that builds to one shouted, adrenalized signature line right before each drop; within the drops the voice appears only as chopped stabs and single exclamations.
+Harmony/Backing Vocals: Sparse low octave doubles in the builds; pitched-down vocal chops used percussively inside the drops.
+Vocal FX: Long dark reverb and delay in the verses; heavy distortion, bit-crushing and formant-shifted chops on every drop fragment.
+Arrangement
+Instrument Lifecycle Description (Primary/Secondary Layering):
+Primary: The halftime drum pattern -- kick on the one, colossal snare on the three, sparse syncopated hats between -- anchors every drop, leaving huge space for the bass. The modulated bass itself is the lead instrument: wobbling LFO growls, talking formant screeches and sustained sub notes trade phrases like a soloist.
+Secondary: Detuned horror-tinged pads and a sparse minor-key music-box motif haunt the intro and interludes; a rising snare roll and pitch-climbing riser assemble each build.
+Groove & Foundation Progression: The intro establishes dread with pads, sparse percussion and vocal wisps. The first build stacks a snare roll, a riser and the pre-drop vocal line, cutting to silence for a beat before drop one lands at full weight, alternating wobble patterns every four bars. A stripped interlude follows -- sub pulses and voice only -- then a second build leads to a nastier drop with double-time bass modulation and added percussion. The outro decays into filtered pads and a last sub rumble.
+Embellishments, Textures & Spatial FX: Cinematic impacts and sub-drops mark the transitions; white-noise sweeps, reversed crashes and a single moment of total silence before each drop maximize contrast; metallic clangs and vinyl hiss texture the empty spaces.

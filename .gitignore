@@ -1,0 +1,10 @@
+# local Claude Code setup + MiniMax skill data (not redistributed -- the
+# upstream repo has no license; see README "Setup" for how to fetch it).
+.claude/
+
+# generated songs / lyrics
+output/
+
+# python
+__pycache__/
+*.pyc
