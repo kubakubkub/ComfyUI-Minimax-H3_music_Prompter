@@ -40,9 +40,20 @@ python -m h3_prompter --image cover.png
 
 ## ComfyUI
 
-Copy `comfyui_node/h3_music_prompter.py` into a custom-node pack folder, set the
-`H3_PROMPTER_PATH` env var to this repo folder, and restart ComfyUI. Two nodes
-appear under `utils/h3`:
+Install by cloning this repo into your `custom_nodes` folder and restarting
+ComfyUI:
+
+```
+cd ComfyUI/custom_nodes
+git clone https://github.com/kubakubkub/ComfyUI-Minimax-H3_music_Prompter
+```
+
+**No requirements to install** — the code is pure Python standard library (the
+image node uses ComfyUI's own numpy/Pillow); it just needs Ollama running.
+(Alternative: copy only `comfyui_node/h3_music_prompter.py` into an existing
+node pack, and set the `H3_PROMPTER_PATH` env var to this repo's folder.)
+
+Two nodes appear under `utils/h3`:
 
 - **H3 Music Prompter (Ollama)** — description + lyrics idea in, `caption` +
   `lyrics` out; wire them into the native H3 music nodes.
