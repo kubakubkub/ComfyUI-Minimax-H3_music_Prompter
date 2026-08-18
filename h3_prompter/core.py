@@ -326,8 +326,11 @@ def _clean_lyrics(text):
 
 def write_lyrics(description, lyric_idea, caption="", model=DEFAULT_MODEL,
                  url=DEFAULT_URL, temperature=0.8, num_ctx=DEFAULT_NUM_CTX,
-                 structure_hint=""):
+                 structure_hint="", language=""):
     user = f"Song style: {description}\n\nWhat the song is about: {lyric_idea}"
+    if language and language.lower() != "auto":
+        user += (f"\n\nWrite the lyrics in {language.upper()}, regardless of the "
+                 "language used above (section tags stay in English).")
     if structure_hint:
         user += f"\n\nLyric structure rules for this style (follow them):\n{structure_hint}"
     if caption:
@@ -344,7 +347,8 @@ def write_lyrics(description, lyric_idea, caption="", model=DEFAULT_MODEL,
 
 def generate(description, lyric_idea="", model=DEFAULT_MODEL, url=DEFAULT_URL,
              use_templates=True, temperature=0.7, num_ctx=DEFAULT_NUM_CTX,
-             skill_path=None, genre="", mood="", release_vram=False, log=print):
+             skill_path=None, genre="", mood="", language="",
+             release_vram=False, log=print):
     """Run the full pipeline. Returns dict with caption, lyrics, diagnostics.
 
     release_vram=True evicts the Ollama model from VRAM when done (success or
@@ -421,6 +425,7 @@ def _generate(description, lyric_idea, model, url, use_templates, temperature,
         log("[h3] writing lyrics ...")
         lyrics = write_lyrics(brief, lyric_idea, caption, model, url,
                               min(temperature + 0.1, 1.0), num_ctx,
-                              structure_hint="\n".join(lyrics_hints))
+                              structure_hint="\n".join(lyrics_hints),
+                              language=language)
 
     return {"caption": caption, "lyrics": lyrics, "diagnostics": diagnostics}

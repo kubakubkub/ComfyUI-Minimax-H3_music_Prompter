@@ -6,6 +6,10 @@ two production-ready prompts for the MiniMax Music 3 ("H3") model:
 1. **Caption** — structured `Global Metadata / Vocal Details / Arrangement` text
 2. **Lyrics** — full section-tagged lyrics (`[Intro]`, `[Verse 1]`, `[Chorus]`, ...) in the language you wrote your idea in
 
+The song idea can also come from **images**: a local vision model describes what an
+image would sound like as music, and multiple images become a section storyboard
+(see `--image` / the image node below).
+
 The rewriting logic follows the official [music-caption-rewriter skill](https://github.com/MiniMax-AI/MiniMax-Music3/tree/main/skills/music-caption-rewriter)
 (SKILL.md rules, genre router, 18 family indexes, 1,000 reference caption templates).
 
@@ -54,6 +58,26 @@ python -m h3_prompter "melancholic synthwave, female vocals" --lyrics "driving a
 Pipeline: route style family (genre-router) → pick up to 3 reference templates from
 family index → write caption → write lyrics. ~4 Ollama calls, `num_ctx` 32k.
 
+#### From an image
+
+```
+python -m h3_prompter --image cover.png --lyrics "a storm that never arrives"
+```
+
+A vision model looks at the image and answers *"if this image produced a song, what
+would it sound like?"* — that description then feeds the normal pipeline. Details:
+
+- `--image` is repeatable: several images become a **section storyboard**
+  (1st = Intro, 2nd = Build-Up, 3rd = Drop / Chorus, 4th = Outro; rename with
+  `--image-labels "dawn,ride,storm"`). The caption unifies them into one style and
+  moves the Arrangement through the chapters in order.
+- The model set with `--model` is used for looking at images too; if it isn't a
+  vision model, point `--vision-model` at one (e.g. `gemma4:12b`).
+- A typed description still works alongside images and takes priority as explicit
+  style direction; `--genre`/`--mood` presets apply as usual.
+- The intermediate music description is saved as `image_brief.txt` next to
+  `caption.txt` / `lyrics.txt`.
+
 ### ComfyUI node
 
 Copy `comfyui_node/h3_music_prompter.py` into any ComfyUI custom-node pack folder
@@ -63,6 +87,25 @@ Inputs: `description`, `lyrics_idea`, model dropdown (live from Ollama), `use_te
 `seed` (bump to regenerate). Outputs: `caption` and `lyrics` STRINGs — wire into the
 H3 music nodes. The node imports `h3_prompter` from this project folder — set the
 `H3_PROMPTER_PATH` env var to wherever you cloned this repo.
+
+The same file also registers **H3 Image Music Prompter (Ollama VLM)** — the
+image-to-prompts variant. Wire 1–4 `IMAGE` inputs (a batched image also works: every
+frame becomes one storyboard section) and it runs the same
+"what would this image sound like?" step as the CLI's `--image` before the normal
+pipeline. Extra inputs: `vision_model` (the Ollama VLM that looks at the images —
+may equal `model`), `section_labels` (comma-separated names for the images),
+`extra_direction` (optional style text that takes priority over the image-derived
+description). Lyrics: with `lyrics_idea` empty, the vision model also derives a
+lyric theme from the images (one extra call), so images alone produce a full song —
+switch `instrumental` on for a caption-only, no-lyrics result. Extra output:
+`image_brief`, the intermediate music description —
+handy for previewing what the vision model "heard". With `release_vram` on, a
+separate vision model is evicted right after the image step.
+
+A complete example workflow with both nodes wired into the native MiniMax Music 3
+nodes (loaders, text encode, sampler, audio VAE decode, save) is in
+[`example/`](example/) — load it in ComfyUI, pick your own images for the
+storyboard, and hit run.
 
 ## Genre & mood presets
 
@@ -86,6 +129,13 @@ and as `--genre`/`--mood` flags in the CLI.
   4. **Lyric structure** — hiphop/trap get dense rhymes + quotable hooks + ad-libs,
      pop gets a catchy repeated refrain, techno/house get mantra-like repetition,
      gospel gets call-and-response with choir, etc.
+- **Language** — `auto` (default: lyrics come out in whatever language you wrote
+  the lyric idea in) or a fixed lyric language: `english, polish, spanish, german,
+  french, italian, portuguese, russian, ukrainian, japanese, korean, chinese`
+  (`--language` in the CLI, `language` dropdown in both nodes; section tags stay
+  English either way). Handy for the image node, where an auto-derived lyric theme
+  is English and would otherwise give English lyrics. Edit `LANGUAGES` in
+  `presets.py` to add more.
 - **Moods** — `dark, ambient, happy, uncanny, surreal, aggressive, holy`.
   A mood colors the caption's atmosphere and the lyric tone. Combines freely with a
   genre (e.g. `techno` + `uncanny`).

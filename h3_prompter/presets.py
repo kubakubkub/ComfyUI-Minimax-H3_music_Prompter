@@ -265,6 +265,17 @@ MOOD_PRESETS = {
 }
 
 
+# Lyric languages. "auto" = same language the lyric idea was written in
+# (the pipeline's default rule); anything else forces that language.
+LANGUAGES = ["auto", "english", "polish", "spanish", "german", "french",
+             "italian", "portuguese", "russian", "ukrainian", "japanese",
+             "korean", "chinese"]
+
+
+def language_choices():
+    return list(LANGUAGES)
+
+
 def genre_choices():
     return ["none"] + sorted(GENRE_PRESETS)
 
